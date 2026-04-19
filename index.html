@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial;
+  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+}
+
+/* TITLE */
+.title {
+  text-align: center;
+  color: white;
+  font-size: 35px;
+  margin-top: 20px;
+  text-shadow: 2px 2px 10px black;
+}
+
+/* TYPEWRITER */
+.typewriter {
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+/* SLIDER */
+.slider {
+  position: relative;
+  max-width: 600px;
+  width: 90%;
+  margin: 30px auto;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.slides {
+  display: flex;
+  transition: 0.6s;
+}
+
+.slide {
+  min-width: 100%;
+  position: relative;
+}
+
+.slide img,
+.slide video {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.quote {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* BUTTONS */
+.buttons {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+button {
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* BALLOONS */
+.balloon {
+  position: absolute;
+  bottom: -150px;
+  width: 30px;
+  height: 50px;
+  border-radius: 50%;
+  animation: float linear infinite;
+}
+
+@keyframes float {
+  from {transform: translateY(0);}
+  to {transform: translateY(-1000px);}
+}
+
+/* BOTTOM MESSAGE */
+.bottom-message {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  color: black;
+  font-weight: bold;
+  text-shadow: 1px 1px 5px rgba(255,255,255,0.6);
+}
+
+/* BOOKS */
+.book {
+  position: fixed;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 999;
+  transition: 0.3s;
+}
+.book:hover { transform: scale(1.4); }
+
+/* POPUP */
+.love-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.love-box {
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 600px) {
+  .title { font-size: 26px; }
+  .typewriter { font-size: 16px; }
+  .slide img, .slide video { height: 250px; }
+  button { font-size: 16px; padding: 8px; }
+}
+
+/* ====== 🔥 ADDED PREMIUM EFFECTS ====== */
+
+/* Glow Title */
+.title {
+  text-shadow: 0 0 10px #fff, 0 0 20px #ff4d6d, 0 0 30px #ff4d6d;
+  animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+  from { text-shadow: 0 0 10px #fff; }
+  to { text-shadow: 0 0 30px #ff4d6d; }
+}
+
+/* Glass Slider */
+.slider {
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 0 25px rgba(0,0,0,0.3);
+}
+
+/* Glowing Books */
+.book {
+  box-shadow: 0 0 10px rgba(255,255,255,0.8);
+  border-radius: 10px;
+}
+.book:hover {
+  box-shadow: 0 0 20px #fff, 0 0 30px #ff4d6d;
+}
+
+/* Floating Hearts */
+.heart {
+  position: fixed;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.7;
+}
+@keyframes floatUp {
+  0% { transform: translateY(100vh); opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* 💌 WISH BOX (ADDED) */
+.wish-box {
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.6;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="title">🎂 Happy Birthday Simran 💖</div>
+<div class="typewriter" id="text"></div>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mp3">
+</audio>
+
+<script>
+window.addEventListener("load", () => {
+  const music = document.getElementById("bgMusic");
+  music.play().catch(() => {
+    document.addEventListener("click", () => {
+      music.play();
+    }, { once: true });
+  });
+});
+</script>
+
+<script>
+for(let i=0;i<10;i++){
+  let b=document.createElement("div");
+  b.className="balloon";
+  b.style.left=Math.random()*100+"%";
+  b.style.background=`hsl(${Math.random()*360},70%,60%)`;
+  b.style.animationDuration=(5+Math.random()*5)+"s";
+  document.body.appendChild(b);
+}
+</script>
+
+<div class="slider">
+  <div class="slides" id="slides">
+
+    <div class="slide"><img src="img1.jpg"><div class="quote">this an day we meet first 💖</div></div>
+    <div class="slide"><img src="img2.jpg"><div class="quote">the day we meet 3rd 😊</div></div>
+    <div class="slide"><img src="img3.jpg"><div class="quote">understanding ❤️</div></div>
+    <div class="slide"><img src="img4.jpg"><div class="quote"> ✨</div></div>
+    <div class="slide"><img src="img6.jpg"><div class="quote">this day do some secret 💕</div></div>
+
+    <div class="slide">
+      <video id="video1" muted>
+        <source src="video1.mp4">
+      </video>
+      <div class="quote">memory 💖</div>
+    </div>
+
+  </div>
+
+  <div class="buttons">
+    <button onclick="prevSlide()">❮</button>
+    <button onclick="nextSlide()">❯</button>
+  </div>
+</div>
+<div class="wish-box">
+  🤍 Assalamu Alaikum 🤍 <br><br>
+
+  Happy Birthday, Simran (Jaanuu) 🎂✨ <br><br>
+
+  May Allah always fill your life with happiness, blessings, and peace.  
+  May each day bring mercy into your life and may all your good prayers be accepted.  
+  May Allah grant you good health, a long life, and halal success.  
+
+  <br><br>
+
+  Always keep smiling and stay under Allah’s protection.  
+  Ameen 🤲💖
+</div>
+
+<div class="bottom-message">
+  💌 happy birthday jaaan 💖
+</div>
+
+<div class="love-popup" id="lovePopup">
+  <div class="love-box">
+    <span onclick="closeLove()" class="close">✖</span>
+    <h2>💖 For You 💖</h2>
+    <p></p>
+  </div>
+</div>
+
+<script>
+
+
+/* SLIDER */
+let index=0;
+let slides=document.getElementById("slides");
+let total=document.querySelectorAll(".slide").length;
+
+function show(){ slides.style.transform=`translateX(-${index*100}%)`; }
+
+function nextSlide(){
+  index = (index + 1) % total;
+  show();
+  if(index === total - 1){
+    document.getElementById("video1").play();
+  }
+}
+
+function prevSlide(){
+  index = (index - 1 + total) % total;
+  show();
+}
+
+/* TYPE */
+let msg="You mean everything to me ❤️";
+let i=0;
+function type(){
+  if(i<msg.length){
+    document.getElementById("text").innerHTML+=msg.charAt(i);
+    i++;
+    setTimeout(type,50);
+  }
+}
+type();
+
+/* POPUP */
+function openLove(message){
+  document.querySelector("#lovePopup p").innerHTML = message;
+  document.getElementById("lovePopup").style.display="flex";
+}
+function closeLove(){
+  document.getElementById("lovePopup").style.display="none";
+}
+
+/* 💖 HEART EFFECT */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerText="💖";
+  h.style.left=Math.random()*100+"%";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},500);
+
+</script>
+
+</body>
+</html>
